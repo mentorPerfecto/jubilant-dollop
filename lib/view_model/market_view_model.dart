@@ -1,7 +1,9 @@
 import 'dart:convert';
+import 'dart:developer';
 
 import 'package:ecommerce/config/app_strings.dart';
 import 'package:ecommerce/model/response/product_list_response.dart';
+import 'package:ecommerce/model/response/single_product_response.dart';
 import 'package:ecommerce/src/models.dart';
 import 'package:ecommerce/src/repository.dart';
 import 'package:ecommerce/src/utils.dart';
@@ -18,6 +20,7 @@ class MarketPlaceViewModel extends ChangeNotifier {
   bool _isLoadingSearch = true;
   bool _isGettingSearchPage = true;
   int _searchPage = 2;
+  bool isGettingSingleListing = true;
 
   // String? selectedListingType;
   // static ListingTypeResponse? _listingTypeResponse;
@@ -37,6 +40,10 @@ class MarketPlaceViewModel extends ChangeNotifier {
   bool get isGettingSearchPage => _isGettingSearchPage;
   int get searchPage => _searchPage;
   List<ProductListResponse> get searchProperties => _searchProperties;
+
+  SingleProductResponse? _singleListing;
+  SingleProductResponse? get singleListing => _singleListing;
+
 
 
 
@@ -148,6 +155,29 @@ class MarketPlaceViewModel extends ChangeNotifier {
     });
   }
 
+
+  ///Method to get single listing by Id
+  Future<void> getSingleListing(BuildContext context, {required String id}) async {
+    try {
+      isGettingSingleListing = true;
+      // notifyListeners();
+      await listingService.fetchSingleListing(id: id).then((value) async {
+        if (value != null) {
+          final decodedResponse = jsonDecode(value.toString());
+          _singleListing = SingleProductResponse.fromJson(decodedResponse);
+            isGettingSingleListing = false;
+            notifyListeners();
+          }
+      }).whenComplete(() {
+        isGettingSingleListing = false;
+        notifyListeners();
+      });
+    } catch (e, s) {
+      logger
+        ..i(checkErrorLogs)
+        ..e(s);
+    }
+  }
 
 
 

@@ -1,6 +1,7 @@
 // ignore_for_file: must_be_immutable
 
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:ecommerce/view/screens/dashboard/home/properties_full_details_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:ecommerce/src/components.dart';
@@ -39,6 +40,12 @@ class ListingsGridItem extends ConsumerWidget {
       padding: EdgeInsets.only(bottom: 15.h, right: 6.w, left: 6.w),
       child: GestureDetector(
         onTap: () {
+          navigatePush(
+            context,
+            PropertyFullDetailsScreen(
+              id: listingId,
+            ),
+          );
         },
         child: Container(
           decoration: BoxDecoration(
@@ -77,7 +84,7 @@ class ListingsGridItem extends ConsumerWidget {
               ),
               //
               Expanded(
-                flex: 1,
+                flex: 2,
                 child: Padding(
                   padding: EdgeInsets.symmetric(
                     horizontal: 5.w,
@@ -92,12 +99,15 @@ class ListingsGridItem extends ConsumerWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            TextView(
-                              text:
-                              '${UtilFunctions.capitalizeAllWord(nameOfHouse)} ',
-                              fontSize: 13.spMin,
-                              fontWeight: FontWeight.w600,
-                              fontFamily: ttHoves,
+                            SizedBox( height: 20.h,  width: 250.w,
+                              child: TextView(
+                                text:
+                                '${UtilFunctions.capitalizeAllWord(nameOfHouse)} ',
+                                fontSize: 13.spMin,
+                                maxLines: 2,
+                                fontWeight: FontWeight.w600,
+                                fontFamily: ttHoves,
+                              ),
                             ),
                             InkWell(
                               onTap: loveIconOnTap,

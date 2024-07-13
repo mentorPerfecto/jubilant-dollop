@@ -70,27 +70,6 @@ class _DashBoardScreenState extends ConsumerState<DashBoardScreen> {
         return exit;
       },
       child: Scaffold(
-        appBar: AppBar(
-          backgroundColor: theme.scaffoldBackgroundColor,
-          automaticallyImplyLeading: false,
-          title: TextView(
-            text: "edededed",
-            textStyle: theme.textTheme.titleLarge!.copyWith(
-              fontSize: 20.spMin,
-            ),
-          ),
-          centerTitle: false,
-          leadingWidth: 50,
-          leading: dashProvider.currentIndex == 0 ?
-          Center(
-              child: ProfileImage(
-                imageType: ProfileImageType.user,
-                imageUrl: profileProvider.profileData?.avatar ?? 'ded',
-                width: 40.w,
-                height: 40.h,
-              ))
-              : null,
-        ),
         body: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 10.0),
           child: dashboardPages[dashProvider.currentIndex],
