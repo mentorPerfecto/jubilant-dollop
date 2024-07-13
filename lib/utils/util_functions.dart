@@ -143,7 +143,7 @@ class UtilFunctions {
   static String currency(context) {
     Locale locale = Localizations.localeOf(context);
     var format =
-        NumberFormat.simpleCurrency(locale: locale.toString(), name: 'NGN');
+        NumberFormat.simpleCurrency(locale: locale.toString(), name: '\$');
     return format.currencyName.toString();
     // print("CURRENCY SYMBOL ${format.currencySymbol}"); // $
     // print("CURRENCY NAME ${format.currencyName}"); // USD

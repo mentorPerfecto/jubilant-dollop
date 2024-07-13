@@ -64,6 +64,7 @@ class _MenuScreenState extends ConsumerState<MenuScreen> {
               padding: EdgeInsets.symmetric(horizontal: 12.w),
               child: const XampDivider(),
             ),
+            SizedBox(height: 18.h),
 
             Container(
               width: screenWidth,
@@ -81,8 +82,8 @@ class _MenuScreenState extends ConsumerState<MenuScreen> {
                 // },
               ),
             ),
-           
 
+            SizedBox(height: 18.h),
             Container(
               // height: 130.h,
               width: screenWidth,
@@ -111,54 +112,9 @@ class _MenuScreenState extends ConsumerState<MenuScreen> {
                 ],
               ),
             ),
-            // SizedBox(height: 18.h),
-            DummyData.accessToken.toString() == 'null'
-                ? Column(
-                    children: [
-                      SizedBox(
-                        height: 50.h,
-                      ),
-                      DefaultButtonMain(
-                        borderRadius: 38.r,
-                        onPressed: () => navigatePush(
-                          context,
-                          const CreateAccountScreen(),
-                        ),
-                        color: AppColors.kPrimary1,
-                        height: 48.h,
-                        // width: 380.w,
-                        text: createAccount,
-                        textColor: AppColors.kWhite,
-                        fontSize: 16.spMin,
-                        fontWeight: FontWeight.w500,
-                        fontFamily: ttHoves,
-                      ),
-                      SizedBox(
-                        height: 10.h,
-                      ),
-                      DefaultButtonMain(
-                        borderRadius: 38.r,
-                        onPressed: () => navigatePush(
-                          context,
-                          const SignInScreen(
-                            backBtnVisibility: true,
-                          ),
-                        ),
-                        color: AppColors.kWhite,
-                        height: 48.h, borderColor: AppColors.kPrimary1,
-                        // width: 380.w,
-                        text: login,
-                        textColor: AppColors.kTextBlack,
-                        fontSize: 16.spMin,
-                        fontWeight: FontWeight.w500,
-                        fontFamily: ttHoves,
-                      ),
-                      SizedBox(
-                        height: 20.h,
-                      ),
-                    ],
-                  )
-                : isLogOutLoading
+
+            SizedBox(height: 18.h),
+          isLogOutLoading
                     ? const Align(
                         alignment: Alignment.center,
                         child: CircularProgressIndicator())
@@ -493,42 +449,33 @@ class UserAccountDetails extends ConsumerWidget {
                 SizedBox(
                   width: 5.w,
                 ),
-                DummyData.accessToken.toString() != 'null'
-                    ? Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          TextView(
-                            text: UtilFunctions.capitalizeAllWord(name),
-                            fontSize: 14.spMin,
-                            fontWeight: FontWeight.w600,
-                            fontFamily: ttHoves,
-                            color: themeMode == ThemeMode.light
-                                ? AppColors.kTextBlack
-                                : AppColors.kWhite,
-                          ),
-                          SizedBox(
-                            height: 2.h,
-                          ),
-                          TextView(
-                            text: accountType == '3'
-                                ? 'Landlord'
-                                : accountType == '2'
-                                    ? 'Tenant'
-                                    : "Guest",
-                            fontSize: 11.spMin,
-                            fontWeight: FontWeight.w400,
-                            fontFamily: ttHoves,
-                            color: themeMode == ThemeMode.light
-                                ? AppColors.kTextBlack
-                                : AppColors.kWhite,
-                          ),
-                        ],
-                      )
-                    : const TextView(
-                        text: "Guest",
-                        fontWeight: FontWeight.bold,
-                      )
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    TextView(
+                      text: UtilFunctions.capitalizeAllWord(name),
+                      fontSize: 14.spMin,
+                      fontWeight: FontWeight.w600,
+                      fontFamily: ttHoves,
+                      color: themeMode == ThemeMode.light
+                          ? AppColors.kTextBlack
+                          : AppColors.kWhite,
+                    ),
+                    SizedBox(
+                      height: 2.h,
+                    ),
+                    TextView(
+                      text:  UtilFunctions.capitalizeAllWord(accountType),
+                      fontSize: 11.spMin,
+                      fontWeight: FontWeight.w400,
+                      fontFamily: ttHoves,
+                      color: themeMode == ThemeMode.light
+                          ? AppColors.kTextBlack
+                          : AppColors.kWhite,
+                    ),
+                  ],
+                )
               ],
             ),
           ),

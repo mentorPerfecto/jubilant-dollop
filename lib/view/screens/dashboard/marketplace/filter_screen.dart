@@ -1,3 +1,4 @@
+// import 'package:ecommerce/view_model/market_view_model.dart';
 // import 'package:flutter/material.dart';
 // import 'package:flutter_riverpod/flutter_riverpod.dart';
 // import 'package:loading_indicator/loading_indicator.dart';
@@ -43,7 +44,7 @@
 //             setState(() {
 //               showLoader = true;
 //             });
-//             provider.getMoreSearchProperties();
+//            // provider.getMoreSearchProperties();
 //           } else {
 //             setState(() {
 //               showLoader = false;
@@ -113,23 +114,12 @@
 //                         height: 270.h,
 //                         width: 100,
 //                         child: ListingsGridItem(
-//                           propertyType:item.propertyType.toString(),
-//                           isAPropertyListing: false,
-//                           role: int.parse(
-//                               profileProvider.profileData?.role.toString() ??
-//                                   '1'),
-//                           listingId: item.listingId.toString(),
-//                           listingType: item.listingType.toString(),
-//                           userId: item.userId.toString(),
-//                           isVerified: item.isVerified,
-//                           isAvailable:
-//                               int.parse(item.availableUnits!.toString()) > 0,
-//                           bedNumber: item.bedrooms.toString(),
-//                           bathNumber: item.bathrooms.toString(),
+//                           category:item.category.toString(),
+//                           listingId: item.id.toString(),
 //                           imageText: item.images!.first.toString(),
 //                           price: item.price.toString(),
 //                           nameOfHouse: item.title.toString(),
-//                           houseAddress: item.address.toString(),
+//                           houseAddress: item.description.toString(),
 //                         ),
 //                       );
 //                     }
@@ -321,82 +311,10 @@
 //                 SizedBox(
 //                   height: 14.h,
 //                 ),
-//                 selectListingWidget(themeModeProvider),
+//                // selectListingWidget(themeModeProvider),
 //                 // selectPropertyWidget(),
 //                 SizedBox(
 //                   height: 30.h,
-//                 ),
-//
-//                 ///Bedroom
-//                 TextView(
-//                   text: bedroom,
-//                   fontWeight: FontWeight.w600,
-//                   fontSize: 16.spMin,
-//                 ),
-//                 SizedBox(
-//                   height: 14.h,
-//                 ),
-//                 Row(
-//                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-//                   children: [
-//                     Expanded(
-//                       child: CustomTextField(
-//                         fieldLabel: '',
-//                         hint: 'No Min',
-//                         keyboardType: TextInputType.number,
-//                         controller: marketPlaceProvider.minBedroomController,
-//                       ),
-//                     ),
-//                     SizedBox(
-//                       width: 10.w,
-//                     ),
-//                     Expanded(
-//                       child: CustomTextField(
-//                         fieldLabel: '',
-//                         hint: 'No Max',
-//                         keyboardType: TextInputType.number,
-//                         controller: marketPlaceProvider.maxBedroomController,
-//                       ),
-//                     ),
-//                   ],
-//                 ),
-//                 SizedBox(
-//                   height: 30.h,
-//                 ),
-//
-//                 ///Bathroom
-//
-//                 TextView(
-//                   text: bathroom,
-//                   fontWeight: FontWeight.w600,
-//                   fontSize: 16.spMin,
-//                 ),
-//                 SizedBox(
-//                   height: 14.h,
-//                 ),
-//                 Row(
-//                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-//                   children: [
-//                     Expanded(
-//                       child: CustomTextField(
-//                         fieldLabel: '',
-//                         hint: 'No Min',
-//                         keyboardType: TextInputType.number,
-//                         controller: marketPlaceProvider.minBathroomController,
-//                       ),
-//                     ),
-//                     SizedBox(
-//                       width: 10.w,
-//                     ),
-//                     Expanded(
-//                       child: CustomTextField(
-//                         fieldLabel: '',
-//                         hint: 'No Max',
-//                         keyboardType: TextInputType.number,
-//                         controller: marketPlaceProvider.maxBathroomController,
-//                       ),
-//                     ),
-//                   ],
 //                 ),
 //
 //                 // TextField(
@@ -452,65 +370,65 @@
 //     );
 //   }
 //
-//   selectListingWidget(ThemeMode themeMode) {
-//     var provider = ref.watch(marketPlaceViewModel);
-//     var theme = Theme.of(context);
-//
-//     return Container(
-//       height: 45.h,
-//       decoration: BoxDecoration(
-//         borderRadius: BorderRadius.circular(
-//           6.r,
-//         ),
-//         border: Border.all(
-//           width: 1.2.w,
-//           color: AppColors.kDisabledButton,
-//         ),
-//         color: theme.scaffoldBackgroundColor,
-//       ),
-//       padding: EdgeInsets.symmetric(
-//         horizontal: 12.w,
-//         vertical: 10.h,
-//       ),
-//       child: DropdownButtonHideUnderline(
-//         child: DropdownButton<String>(
-//           isExpanded: true,
-//           hint: Text(
-//             any,
-//             style: TextStyle(
-//                 color: themeMode == ThemeMode.light
-//                     ? AppColors.kTextBlack
-//                     : AppColors.kTextWhite),
-//           ),
-//           value: provider.selectedListingType,
-//           icon: Image.asset(
-//             AppImages.dropDown,
-//             color: themeMode == ThemeMode.light
-//                 ? AppColors.kTextBlack
-//                 : AppColors.kTextWhite,
-//           ),
-//           iconSize: 24.r,
-//           // elevation: 16,
-//           style: TextStyle(
-//               color: themeMode == ThemeMode.light
-//                   ? AppColors.kTextBlack
-//                   : AppColors.kTextWhite),
-//           onChanged: (newProperty) {
-//             provider.updateListingTypeName(newProperty!);
-//           },
-//           items: provider.listingTypeResponse!.listingType!
-//               .map<DropdownMenuItem<String>>((ListingType listingType) {
-//             return DropdownMenuItem<String>(
-//               value: listingType.id!,
-//               child: TextView(
-//                   text: listingType.name!,
-//                   color: themeMode == ThemeMode.light
-//                       ? AppColors.kTextBlack
-//                       : AppColors.kTextWhite),
-//             );
-//           }).toList(),
-//         ),
-//       ),
-//     );
-//   }
+//   // selectListingWidget(ThemeMode themeMode) {
+//   //   var provider = ref.watch(marketPlaceViewModel);
+//   //   var theme = Theme.of(context);
+//   //
+//   //   return Container(
+//   //     height: 45.h,
+//   //     decoration: BoxDecoration(
+//   //       borderRadius: BorderRadius.circular(
+//   //         6.r,
+//   //       ),
+//   //       border: Border.all(
+//   //         width: 1.2.w,
+//   //         color: AppColors.kDisabledButton,
+//   //       ),
+//   //       color: theme.scaffoldBackgroundColor,
+//   //     ),
+//   //     padding: EdgeInsets.symmetric(
+//   //       horizontal: 12.w,
+//   //       vertical: 10.h,
+//   //     ),
+//   //     child: DropdownButtonHideUnderline(
+//   //       child: DropdownButton<String>(
+//   //         isExpanded: true,
+//   //         hint: Text(
+//   //           any,
+//   //           style: TextStyle(
+//   //               color: themeMode == ThemeMode.light
+//   //                   ? AppColors.kTextBlack
+//   //                   : AppColors.kTextWhite),
+//   //         ),
+//   //         value: provider.selectedListingType,
+//   //         icon: Image.asset(
+//   //           AppImages.dropDown,
+//   //           color: themeMode == ThemeMode.light
+//   //               ? AppColors.kTextBlack
+//   //               : AppColors.kTextWhite,
+//   //         ),
+//   //         iconSize: 24.r,
+//   //         // elevation: 16,
+//   //         style: TextStyle(
+//   //             color: themeMode == ThemeMode.light
+//   //                 ? AppColors.kTextBlack
+//   //                 : AppColors.kTextWhite),
+//   //         onChanged: (newProperty) {
+//   //           provider.updateListingTypeName(newProperty!);
+//   //         },
+//   //         items: provider.listingTypeResponse!.listingType!
+//   //             .map<DropdownMenuItem<String>>((ListingType listingType) {
+//   //           return DropdownMenuItem<String>(
+//   //             value: listingType.id!,
+//   //             child: TextView(
+//   //                 text: listingType.name!,
+//   //                 color: themeMode == ThemeMode.light
+//   //                     ? AppColors.kTextBlack
+//   //                     : AppColors.kTextWhite),
+//   //           );
+//   //         }).toList(),
+//   //       ),
+//   //     ),
+//   //   );
+//   // }
 // }

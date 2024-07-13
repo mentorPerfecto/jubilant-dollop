@@ -50,23 +50,12 @@ class ProfileViewModel extends ChangeNotifier {
       )
           .then((value) async {
         if (value != null) {
-          final decodedResponse = jsonDecode(value.toString());
-
-          if (decodedResponse['status'].toString() == 'true') {
-            showToast(
-              msg: decodedResponse['message'].toString(),
-              isError: false,
-            );
-            _isUpdatingUserProfile = false;
-            notifyListeners();
-          } else if (value['status'].toString() == 'false') {
-            showToast(
-              msg: value['message'].toString(),
-              isError: false,
-            );
-            _isUpdatingUserProfile = false;
-            notifyListeners();
-          }
+          showToast(
+            msg: "Profile Updated Successfully",
+            isError: false,
+          );
+          _isUpdatingUserProfile = false;
+          notifyListeners();
         }
       }).whenComplete(() {
         _isUpdatingUserProfile = false;
