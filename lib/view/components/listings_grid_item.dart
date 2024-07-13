@@ -94,41 +94,39 @@ class ListingsGridItem extends ConsumerWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      SizedBox( height: 20.h,
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            SizedBox( height: 20.h,  width: 250.w,
-                              child: TextView(
-                                text:
-                                '${UtilFunctions.capitalizeAllWord(nameOfHouse)} ',
-                                fontSize: 13.spMin,
-                                maxLines: 2,
-                                fontWeight: FontWeight.w600,
-                                fontFamily: ttHoves,
-                              ),
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          SizedBox( width:250.w,
+                            child: TextView(
+                              text:nameOfHouse,
+                              // '${UtilFunctions.capitalizeAllWord()}',
+                              fontSize: 13.spMin, maxLines: 3,
+                              fontWeight: FontWeight.w600,
+                              fontFamily: ttHoves,
                             ),
-                            InkWell(
-                              onTap: loveIconOnTap,
-                              child: CircleAvatar(
-                                backgroundColor: AppColors.kWhite,
-                                radius: 16.r,
-                                child: Center(
-                                  child: Icon(
-                                    Icons.favorite_border_outlined,
-                                    color: AppColors.kPrimary1,
-                                    size: 19.5.spMin,
-                                  ),
+                          ),
+                          InkWell(
+                            onTap: loveIconOnTap,
+                            child: CircleAvatar(
+                              backgroundColor: AppColors.kWhite,
+                              radius: 16.r,
+                              child: Center(
+                                child: Icon(
+                                  Icons.favorite_border_outlined,
+                                  color: AppColors.kPrimary1,
+                                  size: 19.5.spMin,
                                 ),
                               ),
-                            )
-                          ],
-                        ),
+                            ),
+                          )
+                        ],
                       ),
-                      SizedBox( height: 20.h,
+                      SizedBox( width: 400.h,
                         child: TextView(
                           text: houseAddress,
+                          maxLines: 2,
                           fontSize: 12.spMin,
                           fontWeight: FontWeight.w400,
                           color: AppColors.kGrey,

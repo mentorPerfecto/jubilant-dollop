@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:developer';
 
 import 'package:ecommerce/config/app_strings.dart';
+import 'package:ecommerce/model/response/category_response_model.dart';
 import 'package:ecommerce/model/response/product_list_response.dart';
 import 'package:ecommerce/model/response/single_product_response.dart';
 import 'package:ecommerce/src/models.dart';
@@ -22,13 +23,14 @@ class MarketPlaceViewModel extends ChangeNotifier {
   int _searchPage = 2;
   bool isGettingSingleListing = true;
 
-  // String? selectedListingType;
-  // static ListingTypeResponse? _listingTypeResponse;
-  // ListingTypeResponse? get listingTypeResponse => _listingTypeResponse;
-  //
-  //
+  String? selectedListingType;
+
+  List<CategoryResponseModel> get listingTypeResponse => _listingTypeResponse;
+
+
   ProductListResponse? _searchPropertiesResponse ;
   List<ProductListResponse> _searchProperties = [];
+  List<CategoryResponseModel> _listingTypeResponse = [];
   final TextEditingController _minAmountController = TextEditingController();
   final TextEditingController _searchController = TextEditingController();
   final TextEditingController _maxAmountController = TextEditingController();
@@ -49,6 +51,7 @@ class MarketPlaceViewModel extends ChangeNotifier {
 
   Future<void> initMarketPlace() async {
     await getSearchProperties();
+    await getListingCategory();
 
   }
 
@@ -70,7 +73,7 @@ class MarketPlaceViewModel extends ChangeNotifier {
     _minAmountController.clear();
     _maxAmountController.clear();
     _searchController.clear();
-  //  selectedListingType = null;
+    selectedListingType = null;
     Future.sync(() => getSearchProperties());
     _searchPage = 2;
     notifyListeners();
@@ -93,11 +96,13 @@ class MarketPlaceViewModel extends ChangeNotifier {
         maxPrice: _maxAmountController.text.toString(),
         minPrice: _minAmountController.text.toString(),
         title: _minAmountController.text.toString(),
+        categoryId: selectedListingType,
       )
           .then((value) async {
         if (value != null) {
           final decodedResponse = jsonDecode(value.toString());
           _searchProperties = (decodedResponse as List) .map((e) => ProductListResponse.fromJson(e)).toList();
+          await getListingCategory();
           notifyListeners();
           // check page count if its more than one, on every successful data fetch
           logger. f(int.parse(_searchProperties.length.toString()) > 10);
@@ -179,6 +184,29 @@ class MarketPlaceViewModel extends ChangeNotifier {
     }
   }
 
+  ///Method to get single listing by Id
+  Future<void> getListingCategory() async {
+    try {
+      await listingService.fetchListingCategory().then((value) async {
+        if (value != null) {
+          final decodedResponse = jsonDecode(value.toString());
+          _listingTypeResponse = (decodedResponse as List) .map((e) => CategoryResponseModel.fromJson(e)).toList();
+          }
+      });
+    } catch (e, s) {
+      logger
+        ..i(checkErrorLogs)
+        ..e(s);
+    }
+  }
+
+
+  ///UpdateSelectedPropertyListing
+  void updateListingTypeName(String listingType) {
+    selectedListingType = listingType;
+    logger.w(selectedListingType);
+    notifyListeners();
+  }
 
 
 

@@ -34,6 +34,9 @@ class ApiConstants {
   Uri get getProfileUri =>
       Uri(scheme: scheme, host: host, path: '$version/$authPath/profile');
 
+  Uri get fetchCategoryUri =>
+      Uri(scheme: scheme, host: host, path: '$version/categories');
+
   Uri fetchListingsUri({
     required String page,
     String? categoryId,

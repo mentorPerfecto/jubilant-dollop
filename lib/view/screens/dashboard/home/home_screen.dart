@@ -1,3 +1,4 @@
+import 'package:ecommerce/model/response/category_response_model.dart';
 import 'package:ecommerce/view_model/market_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -17,7 +18,6 @@ class HomeScreen extends ConsumerStatefulWidget {
 
 class _HomeScreenState extends ConsumerState<HomeScreen> {
   final ScrollController _scrollController = ScrollController();
-  bool showLoader = false;
   @override
   void initState() {
     //list = ref.read(fetchVendorStream);
@@ -33,26 +33,27 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
     //     List.from(ref.watch(marketPlaceViewModel).propertiesListings);
 
     provider.getSearchProperties();
-    _scrollController.addListener(() {
-      if (_scrollController.position.atEdge) {
-        if (_scrollController.position.pixels == 0) {
-          // onAtTop?.call();
-        }
-        // Reach the bottom of the list
-        else {
-          if (provider.canLoadMoreSearchProperties) {
-            setState(() {
-              showLoader = true;
-            });
-            // provider.getMoreSearchProperties();
-          } else {
-            setState(() {
-              showLoader = false;
-            });
-          }
-        }
-      }
-    });
+    provider.initMarketPlace();
+    // _scrollController.addListener(() {
+    //   if (_scrollController.position.atEdge) {
+    //     if (_scrollController.position.pixels == 0) {
+    //       // onAtTop?.call();
+    //     }
+    //     // Reach the bottom of the list
+    //     else {
+    //       if (provider.canLoadMoreSearchProperties) {
+    //         setState(() {
+    //           showLoader = true;
+    //         });
+    //         // provider.getMoreSearchProperties();
+    //       } else {
+    //         setState(() {
+    //           showLoader = false;
+    //         });
+    //       }
+    //     }
+    //   }
+    // });
 
     super.didChangeDependencies();
   }
@@ -126,7 +127,6 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
               }
             },
           ),
-          showLoader == true ? const Center(child: loaderOne) : Container(),
         ],
       ),
     );
@@ -312,8 +312,7 @@ class _FilterWidgetState extends ConsumerState<FilterWidget> {
                 SizedBox(
                   height: 14.h,
                 ),
-                // selectListingWidget(themeModeProvider),
-                // selectPropertyWidget(),
+                selectListingWidget(themeModeProvider),
                 SizedBox(
                   height: 30.h,
                 ),
@@ -371,65 +370,65 @@ class _FilterWidgetState extends ConsumerState<FilterWidget> {
     );
   }
 
-// selectListingWidget(ThemeMode themeMode) {
-//   var provider = ref.watch(marketPlaceViewModel);
-//   var theme = Theme.of(context);
-//
-//   return Container(
-//     height: 45.h,
-//     decoration: BoxDecoration(
-//       borderRadius: BorderRadius.circular(
-//         6.r,
-//       ),
-//       border: Border.all(
-//         width: 1.2.w,
-//         color: AppColors.kDisabledButton,
-//       ),
-//       color: theme.scaffoldBackgroundColor,
-//     ),
-//     padding: EdgeInsets.symmetric(
-//       horizontal: 12.w,
-//       vertical: 10.h,
-//     ),
-//     child: DropdownButtonHideUnderline(
-//       child: DropdownButton<String>(
-//         isExpanded: true,
-//         hint: Text(
-//           any,
-//           style: TextStyle(
-//               color: themeMode == ThemeMode.light
-//                   ? AppColors.kTextBlack
-//                   : AppColors.kTextWhite),
-//         ),
-//         value: provider.selectedListingType,
-//         icon: Image.asset(
-//           AppImages.dropDown,
-//           color: themeMode == ThemeMode.light
-//               ? AppColors.kTextBlack
-//               : AppColors.kTextWhite,
-//         ),
-//         iconSize: 24.r,
-//         // elevation: 16,
-//         style: TextStyle(
-//             color: themeMode == ThemeMode.light
-//                 ? AppColors.kTextBlack
-//                 : AppColors.kTextWhite),
-//         onChanged: (newProperty) {
-//           provider.updateListingTypeName(newProperty!);
-//         },
-//         items: provider.listingTypeResponse!.listingType!
-//             .map<DropdownMenuItem<String>>((ListingType listingType) {
-//           return DropdownMenuItem<String>(
-//             value: listingType.id!,
-//             child: TextView(
-//                 text: listingType.name!,
-//                 color: themeMode == ThemeMode.light
-//                     ? AppColors.kTextBlack
-//                     : AppColors.kTextWhite),
-//           );
-//         }).toList(),
-//       ),
-//     ),
-//   );
-// }
+selectListingWidget(ThemeMode themeMode) {
+  var provider = ref.watch(marketPlaceViewModel);
+  var theme = Theme.of(context);
+
+  return Container(
+    height: 45.h,
+    decoration: BoxDecoration(
+      borderRadius: BorderRadius.circular(
+        6.r,
+      ),
+      border: Border.all(
+        width: 1.2.w,
+        color: AppColors.kDisabledButton,
+      ),
+      color: theme.scaffoldBackgroundColor,
+    ),
+    padding: EdgeInsets.symmetric(
+      horizontal: 12.w,
+      vertical: 10.h,
+    ),
+    child: DropdownButtonHideUnderline(
+      child: DropdownButton<String>(
+        isExpanded: true,
+        hint: Text(
+          any,
+          style: TextStyle(
+              color: themeMode == ThemeMode.light
+                  ? AppColors.kTextBlack
+                  : AppColors.kTextWhite),
+        ),
+        value: provider.selectedListingType,
+        icon: Image.asset(
+          AppImages.dropDown,
+          color: themeMode == ThemeMode.light
+              ? AppColors.kTextBlack
+              : AppColors.kTextWhite,
+        ),
+        iconSize: 24.r,
+        // elevation: 16,
+        style: TextStyle(
+            color: themeMode == ThemeMode.light
+                ? AppColors.kTextBlack
+                : AppColors.kTextWhite),
+        onChanged: (newProperty) {
+          provider.updateListingTypeName(newProperty!);
+        },
+        items: provider.listingTypeResponse
+            .map<DropdownMenuItem<String>>((CategoryResponseModel listingType) {
+          return DropdownMenuItem<String>(
+            value: listingType.id!.toString(),
+            child: TextView(
+                text: listingType.name!,
+                color: themeMode == ThemeMode.light
+                    ? AppColors.kTextBlack
+                    : AppColors.kTextWhite),
+          );
+        }).toList(),
+      ),
+    ),
+  );
+}
 }

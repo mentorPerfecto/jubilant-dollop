@@ -3,17 +3,12 @@ import 'package:ecommerce/view_model/market_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:loading_indicator/loading_indicator.dart';
-import 'package:ecommerce/src/components.dart';
 import 'package:ecommerce/src/config.dart';
-import 'package:ecommerce/src/models.dart';
 import 'package:ecommerce/src/screens.dart';
 import 'package:ecommerce/src/utils.dart';
 import 'package:ecommerce/src/providers.dart';
-import 'package:ecommerce/view/components/bullet_list.dart';
 
-import 'package:ecommerce/src/providers.dart';
 
-import '../../../../config/app_strings.dart';
 
 class PropertyFullDetailsScreen extends ConsumerStatefulWidget {
   final String id;

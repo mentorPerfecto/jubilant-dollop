@@ -15,7 +15,7 @@ class ListingsBackend extends ApiService {
     return getMth(
       fetchListingsUri(
         page: page.toString(),
-        categoryId: categoryId,
+        categoryId: categoryId ?? '',
         minPrice: minPrice,
         maxPrice: maxPrice,
         title: title,
@@ -31,9 +31,9 @@ class ListingsBackend extends ApiService {
     );
   }
 
-  Future<dynamic> fetchListingImage({required String uri}) async {
+  Future<dynamic> fetchListingCategory() async {
     return getMth(
-      Uri.parse(uri),
+      fetchCategoryUri,
       headers: apiHeaderWithToken,
     );
   }
